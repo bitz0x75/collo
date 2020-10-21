@@ -1,0 +1,12 @@
+// Gallery
+
+export const UPLOAD_IMAGE="UPLOAD_IMAGE"
+export const UPLOAD_IMAGE_ERROR = "UPLOAD_IMAGE_ERROR"
+export const GET_IMAGES="GET_IMAGES"
+export const GET_IMAGES_ERROR="GET_IMAGES_ERROR"
+export const GET_AN_IMAGE="GET_AN_IMAGE"
+export const GET_AN_IMAGE_ERROR="GET_AN_IMAGE_ERROR"
+
+
+// Default Error Message
+export const DEFAULT_ERROR_MESSAGE = "DEFAULT_ERROR_MESSAGE"
