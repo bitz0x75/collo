@@ -13,6 +13,7 @@ class Gallery extends React.Component {
     imageTitle: "",
     image: "",
     imageDescription: "",
+    imagesPending: [],
   }
 
   componentDidMount(){
@@ -26,25 +27,31 @@ class Gallery extends React.Component {
   }
 
   handlePublishImage = () => {
-    const formData = {
-      title: this.state.imageTitle,
-      description: this.state.imageDescription,
-      src: this.state.image
-    }
-    this.props.uploadPhoto(formData)
+    return this.state.imagesPending.length > 0 && this.state.imagesPending.map(image => {
+      const formData = {
+        title: this.state.imageTitle,
+        description: this.state.imageDescription,
+        src: image
+      }
+      return this.props.uploadPhoto(formData)
+    })
   }
 
 
   handlePhotoUpload = (tag) => {
     const uploadOptions = {
       cloudName: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
-      tags: [tag],
+      tags: ["collo"],
       uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
     }
+    let imagesPending =[]
     openUploadWidget(uploadOptions, (error, photos) => {
       if(!error) {
         if(photos.event === "success") {
+          imagesPending.push(photos.info.secure_url && photos.info.secure_url)
+          console.log(photos.info.secure_url && photos.info.secure_url)
           this.setState({image: photos.info.secure_url && photos.info.secure_url})
+          this.setState({imagesPending})
           this.setState({uploadMode: !this.state.uploadMode})
         }
       }else{
@@ -67,7 +74,6 @@ class Gallery extends React.Component {
   }
 
   render(){
-    console.log(this.props.images)
     return(
       <Fragment> 
         <div className="content">
